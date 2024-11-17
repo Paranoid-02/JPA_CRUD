@@ -1,43 +1,44 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Product;
-import com.example.demo.repository.ProductRepo;
+import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class ProductService {
 
     @Autowired
-    ProductRepo repo;
+    private ProductRepository productRepository;
 
-//    List<Product> products = new ArrayList<>(Arrays.asList(
-//            new Product(101,"Apple",50000),
-//            new Product(102,"Samsung",65000),
-//            new Product(103,"Moto",30000)
-//    ));
-
-    public List<Product> getProducts(){
-        return repo.findAll();
+    // Create
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
     }
 
-    public Product getProductsById(int prodId) {
-        return repo.findById(prodId).orElse(new Product());
+    // Read
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
-    public void addProduct(Product prod){
-        repo.save(prod);
+    public Product getProductById(Integer id) {
+        return productRepository.findById(id).orElse(null);
     }
 
-    public void updateProduct(Product prod) {
-        repo.save(prod);
+    // Update
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
     }
 
-    public void deleteProduct(int prodId) {
-        repo.deleteById(prodId);
+    // Delete
+    public void deleteProduct(Integer id) {
+        productRepository.deleteById(id);
+    }
+
+    // Custom query
+    public List<Product> getTop2ProductsByPriceRange() {
+        return productRepository.findTop2ProductsByPriceRange();
     }
 }
