@@ -41,4 +41,5 @@ public class ProductService {
     public List<Product> getTop2ProductsByPriceRange() {
         return productRepository.findTop2ProductsByPriceRange();
     }
+
 }
